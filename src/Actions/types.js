@@ -1,0 +1,17 @@
+export const HOUSES_FETCH_SUCCESS = 'houses_fetch_success';
+export const LOCATIONS_FETCH_SUCCESS = 'locations_fetch_success';
+export const HOUSETYPES_FETCH_SUCCESS = 'housetype_fetch_success';
+export const PRICERANGES_FETCH_SUCCESS = 'pricerange_fetch_success';
+export const SEARCH_CHANGED = 'search_changed';
+export const SEARCHING = 'searching';
+export const PRICERANGE_CHECK = 'pricerange_check';
+export const HOUSETYPE_CHECK = 'housetype_check';
+export const LOCATION_CHECK = 'location_check';
+export const PRICERANGE_NAME_CHECK = 'pricerange_name_check';
+export const HOUSETYPE_NAME_CHECK = 'housetype_name_check';
+export const LOCATION_NAME_CHECK = 'location_name_check';
+export const STATUS_CHECK = 'status_check';
+export const FILTERING = 'filtering';
+export const ABORT_FILTERING = 'abort_filtering';
+export const FILTER = 'filter';
+export const REALTOR_PAGE = 'realtor_page';
