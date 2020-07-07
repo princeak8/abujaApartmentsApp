@@ -84,7 +84,7 @@ export const filter = (filters, page=1) => {
   console.log('page ', page);
   return dispatch => {
     axios
-      .post('https://abujaapartments.com.ng/api/v1/filter_houses', formData)
+      .post('https://abujaapartments.com.ng/api/v1/filter_app_houses', formData)
       .then(response => {
         //console.log('Filter ',response.data);
          dispatch({type: FILTER, payload: response.data});

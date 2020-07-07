@@ -19,7 +19,7 @@ export default (state = INITIAL_STATE, action) => {
       } else {
         var newHouses = action.payload.houses;
       }
-      console.log('house reducer ', newHouses);
+      console.log('house reducers ', action.payload);
       return {
         loadedHouses: newHouses,
         totalNum: action.payload.meta.totalNum,

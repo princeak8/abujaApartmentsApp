@@ -42,6 +42,13 @@ class Header extends Component {
   home_page = () => {
     console.log('homepage');
     if(this.props.filtering) {
+      this.props.filters.price_range_id = [];
+      this.props.filters.house_type_id = [];
+      this.props.filters.location_id = [];
+      this.props.filters.filteredHouses = [];
+      this.props.filtered.price_ranges = [];
+      this.props.filtered.house_types = [];
+      this.props.filtered.locations = [];
       this.props.abortFiltering();
     }
   }
@@ -128,8 +135,8 @@ const styles = StyleSheet.create({
 // Make the component available to other part of the app
 
 const mapStateToProps = state => {
-  const {filtering} = state;
-  return {filtering};
+  const {filtering, filters, filtered} = state;
+  return {filtering, filters, filtered};
 };
 
 export default connect(mapStateToProps, {abortFiltering})(Header);
