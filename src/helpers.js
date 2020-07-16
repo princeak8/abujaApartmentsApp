@@ -15,6 +15,13 @@ export const checkXterLength = (string) => {
     return `${string.slice(0, 20)}..`
 }
 
+export const shortenXterLength = (string, number=10) => {
+    if(string.length < number) {
+        return string
+    }
+    return `${string.slice(0, number)}..`
+}
+
 export const capitalize = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
 }

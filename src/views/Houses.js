@@ -207,9 +207,8 @@ class Houses extends PureComponent {
     }else{
       if (this.props.houses.totalNum > 0) {
         return (
-          <View style={{marginTop:0, paddingTop:0}}>
-            {this.render_filter_moadal()}
-            <View style={{marginBottom:50, paddingBottom:100}}>
+          <View>
+            <View style={{marginBottom:50, paddingBottom:100 }}>
               <FlatList
                 numColumns={2}
                 data={this.props.houses.loadedHouses}
@@ -220,6 +219,7 @@ class Houses extends PureComponent {
                 initialNumToRender={this.props.houses.limit}
               />
             </View>
+            {this.render_filter_moadal()}
           </View>
         );
       } else {
@@ -257,7 +257,7 @@ const activityIndicatorStyles = StyleSheet.create({
 
 const styles = StyleSheet.create({
   container: {
-    // paddingHorizontal: 10
+    paddingHorizontal: 5
   },
   activityContainer: {
     flex: 1,

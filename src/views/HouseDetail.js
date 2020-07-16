@@ -11,16 +11,19 @@ import HouseImage from './HouseImage';
 import { MyText } from '../components/common/index';
 import { Icon } from 'react-native-elements';
 import GStyles from '../assets/styles/GeneralStyles';
-import { checkXterLength } from '../helpers';
+import { checkXterLength, shortenXterLength } from '../helpers';
+import LinearGradient from 'react-native-linear-gradient';
+ 
 
 class HouseDetail extends Component {
   render() {
     //console.log('house', this.props.house);
-    const {title, id, location, price, photo_url, status} = this.props.house;
-    const { textH3Style, textBrandColor, textBold, imgStyle, flexRow, textWhite, textH4Style, textCenter, textNunito } = GStyles
+    const {title, id, location, price, photo_url, status, type} = this.props.house;
+    const { textH3Style, textBrandColor, textBold, imgStyle, flexRow, textWhite, textH4Style, textCenter, textNunito, textNunitoBold,
+    textH5Style } = GStyles
    
     const {
-      photoStyle, bedContainer, showerStyle, bedStyle, lowerContainer, statusContainer,
+      photoStyle, bedContainer, showerStyle, bedStyle, lowerContainer, statusContainer, priceGradientStyles,
       locationStyle,
       priceStyle,
       textStyle,
@@ -29,23 +32,24 @@ class HouseDetail extends Component {
 
     return (
       <View style={containerStyle}>
-        <View style={priceStyle}>
+        
+        <LinearGradient start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            colors={['rgba(6, 94, 153, 1)','#0379C9']}
+            style={priceGradientStyles}>
           <View>
-            <MyText style={[textH4Style, textBold, textWhite]}>N {price}</MyText>
+            <MyText style={[textH4Style, textBold, textWhite]}>₦ {price}</MyText>
           </View>
-        </View>
+        </LinearGradient>
 
         <View style={locationStyle}>
-          <Icon name="map-marker" type="font-awesome" color="#065E99" size={16} />
-          <MyText style={[textBrandColor, textH3Style, textBold, {marginLeft: 5}]}>{location}</MyText>
+          <Icon name="map-marker" type="font-awesome" color="#065E99" size={20} />
+          <MyText style={[textBrandColor, textH4Style, textBold, {marginLeft: 5}]}>{location}</MyText>
         </View>
 
         <TouchableWithoutFeedback 
-            onPress={() => {this.props.navigation.navigate('House', {
-               house: this.props.house
-             })
-            }}
-        >
+            onPress={() => {this.props.navigation.navigate('House', { house: this.props.house }) }}
+          >
           <View style={photoStyle}>
             <Image source={{uri:photo_url }} style={imgStyle} resizeMode="cover" />
           </View>
@@ -61,15 +65,18 @@ class HouseDetail extends Component {
             <Icon name="shower" type="font-awesome" color="#065E99" size={14}  />
           </View>
         </View>
-        <View style={lowerContainer}>
-          <MyText style={[textWhite, textH4Style, textWhite, textCenter, textNunito]}>
-            {checkXterLength(title)}
+        <LinearGradient colors={['#0379C9','rgba(6, 94, 153, 1)']} style={lowerContainer}>
+          <MyText style={[textWhite, textH5Style, textCenter, textNunitoBold]}>
+            {shortenXterLength(title, 17)}
+          </MyText>
+          <MyText>
+            {type}
           </MyText>
 
           <View style={statusContainer}>
             <MyText style={[textBrandColor, textH4Style, textBold]}>{status}</MyText>
           </View>
-        </View>
+        </LinearGradient>
         {/* <View style={imageContainerStyle}>
           <TouchableWithoutFeedback
             onPress={() => {
@@ -114,7 +121,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 2,
-    elevation: 2,
+    elevation: 4,
   },
   locationStyle: {
     display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 8
@@ -123,20 +130,20 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   photoStyle: {
-    width: '92%', height: 150, borderRadius: 10, overflow: 'hidden'
+    width: '92%', height: 140, borderRadius: 10, overflow: 'hidden'
   },
   bedContainer: {
-    display: 'flex', flexDirection: 'row', marginVertical: 8
+    display: 'flex', flexDirection: 'row', marginVertical: 8, paddingHorizontal: 20
   },
   showerStyle: {
-    alignItems: 'center', flex: 1, justifyContent: 'center'
+    alignItems: 'flex-end', flex: 1, justifyContent: 'center'
   },
   bedStyle: {
-    alignItems: 'center', flex: 1, justifyContent: 'center'
+    alignItems: 'flex-end', flex: 1, justifyContent: 'center'
   },
   
   priceStyle: {
-    position: 'absolute', backgroundColor: '#065E99', borderRadius: 8, left: -8, top: 50,
+    position: 'absolute', backgroundColor: '#065E99', borderRadius: 8, left: -8, top: 55,
     paddingHorizontal: 10, paddingVertical: 8, zIndex: 2
   },
   lowerContainer: {
@@ -145,9 +152,19 @@ const styles = StyleSheet.create({
   },
   statusContainer: {
     backgroundColor: 'white', paddingHorizontal: 10, paddingVertical: 3,
-    borderBottomLeftRadius: 30, borderTopRightRadius: 30, flex: 1, marginTop: 15, width: '45%', display: 'flex',
+    borderBottomLeftRadius: 30, borderTopRightRadius: 30, flex: 1, marginTop: 10, marginBottom: 6, width: '60%', display: 'flex',
     alignItems: 'center'
-  }
+  },
+  priceGradientStyles: {
+    position: 'absolute', backgroundColor: '#065E99', borderRadius: 8, left: -8, top: 55,
+    paddingHorizontal: 10, paddingVertical: 8, zIndex: 2,
+    // width: '100%',
+    // display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // borderRadius: 40,
+    // paddingVertical: 14,
+  },
   
   
 });

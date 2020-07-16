@@ -94,7 +94,7 @@ class Header extends Component {
 
 const styles = StyleSheet.create({
   imageBgStyles: {
-    width: '100%', height: 95
+    width: '100%', height: 95,
   },
   headerContainer: {
     display: 'flex', flexDirection: 'row', alignItems: 'center', paddingVertical: 10, paddingHorizontal: 10
