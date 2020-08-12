@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import HouseReducer from './HouseReducer';
+import SimilarHouseReducer from './SimilarHouseReducer';
 import LocationReducer from './LocationReducer';
 import HouseTypeReducer from './HouseTypeReducer';
 import PriceRangeReducer from './PriceRangeReducer';
@@ -11,6 +12,7 @@ import RealtorHouseReducer from './RealtorHouseReducer';
 
 export default combineReducers({
   houses: HouseReducer,
+  similarHouses: SimilarHouseReducer,
   locations: LocationReducer,
   house_types: HouseTypeReducer,
   price_ranges: PriceRangeReducer,

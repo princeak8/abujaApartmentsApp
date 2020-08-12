@@ -9,7 +9,7 @@ export default (state = INITIAL_STATE, action) => {
     
     switch (action.type) {
         case REALTOR_PAGE:
-            return action.payload;
+            return action.payload.data.houses;
         default:
             return state;
     }

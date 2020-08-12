@@ -48,7 +48,14 @@ class HouseDetail extends Component {
         </View>
 
         <TouchableWithoutFeedback 
-            onPress={() => {this.props.navigation.navigate('House', { house: this.props.house }) }}
+            onPress={() => {
+              this.props.navigation.navigate('House', { 
+                house: this.props.house, 
+                navigation: this.props.navigation,
+                realtorDetailsModalState: this.props.realtorDetailsModalState, 
+                toggle_realtorDetailsModalState: this.props.toggle_realtorDetailsModalState 
+              }) 
+            }}
           >
           <View style={photoStyle}>
             <Image source={{uri:photo_url }} style={imgStyle} resizeMode="cover" />

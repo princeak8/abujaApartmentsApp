@@ -1,4 +1,5 @@
 export const HOUSES_FETCH_SUCCESS = 'houses_fetch_success';
+export const SIMILAR_HOUSES_FETCH_SUCCESS = 'similar_houses_fetch_success';
 export const LOCATIONS_FETCH_SUCCESS = 'locations_fetch_success';
 export const HOUSETYPES_FETCH_SUCCESS = 'housetype_fetch_success';
 export const PRICERANGES_FETCH_SUCCESS = 'pricerange_fetch_success';

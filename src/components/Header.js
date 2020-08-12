@@ -51,6 +51,10 @@ class Header extends Component {
       this.props.filtered.locations = [];
       this.props.abortFiltering();
     }
+    if(this.props.navigation.state.routeName == 'House') {
+      console.log(this.props.navigation.state.routeName);
+      this.props.navigation.navigate('Home');
+    }
   }
 
 

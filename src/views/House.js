@@ -7,17 +7,35 @@ import {
     StyleSheet, 
     Dimensions,
     PanResponder,
-    Animated,
+    TouchableWithoutFeedback,
     ScrollView
 } from 'react-native';
+import {connect} from 'react-redux';
 import { Icon } from 'react-native-elements';
 import Swiper from 'react-native-swiper'
 import Header from '../components/Header';
 import { MyText } from '../components/common/index';
 import GStyles from '../assets/styles/GeneralStyles';
 import { checkXterLength } from '../helpers';
+import {Button} from '../components/common';
+import RealtorDetailsModal from '../components/RealtorDetailsModal';
+import { similarHousesFetch } from '../Actions';
+import LinearGradient from 'react-native-linear-gradient';
 
 class House extends Component {
+    state = {
+        realtorDetailsModalState: false
+    }
+
+    componentDidMount() {
+        console.log(this.props.navigation.getParam('house'));
+    }
+
+    toggle_realtorDetailsModalState = () => {
+        console.log('show realtor details');
+        this.setState({realtorDetailsModalState: !this.state.realtorDetailsModalState});
+    }
+
     static navigationOptions = ({ navigation }) => {
         const house = navigation.getParam('house', {});
         if(house.length==0) {
@@ -70,7 +88,62 @@ class House extends Component {
         })
     }
 
+    render_realtor_details_moadal = () => {
+        return (
+          <View>
+            <RealtorDetailsModal 
+                navigation={this.props.navigation}
+                realtorDetailsModalState={this.state.realtorDetailsModalState} 
+                toggle_realtorDetailsModalState={this.toggle_realtorDetailsModalState}
+                realtor={this.props.navigation.getParam('house').realtor}
+            />
+          </View>
+        );
+      }
+//tyas TYSA
+    go_to_similar_houses = () => {
+        console.log('go ');
+        const {status, bedrooms} = this.props.navigation.getParam('house');
+        this.props.similarHousesFetch(bedrooms, status);
+        console.log('similar Houses: ',this.props.similarHouses);
+    }
+    render_realtor_details_moada = () => {
+        console.log('go ');
+        const {status, bedrooms} = this.props.navigation.getParam('house');
+        this.props.similarHousesFetch(bedrooms, status);
+        console.log('similar Houses: ',this.props.similarHouses);
+        this.props.navigation.navigate('SimilarHouses', { 
+            navigation: this.props.navigation
+        })
+    }
+
+    render_footer_buttons = () => {
+        return (
+            <View style={{height: 40, flexDirection: 'row', paddingTop: 0, marginTop: 0}}>           
+                <TouchableWithoutFeedback style={{marginTop: 0, paddingTop: 0}} onPress={this.toggle_realtorDetailsModalState}>
+                    <LinearGradient colors={['#0379C9', '#065E99']} style={{height:40,width:'40%', borderRadius: 10}}>
+                        <Text style={{color: '#FFF', textAlign: 'center', marginTop: 10}}>Realtor Details</Text>
+                    </LinearGradient>
+                </TouchableWithoutFeedback>
+                
+                <TouchableWithoutFeedback style={{marginTop: 0, paddingTop: 0}} 
+                    onPress={() => { 
+                        this.props.navigation.navigate('SimilarHouses', { 
+                            navigation: this.props.navigation,
+                            house: this.props.navigation.getParam('house')
+                        })
+                    }}
+                >
+                    <LinearGradient colors={['#0379C9', '#065E99']} style={{height:40,width:'40%', borderRadius: 10}}>
+                        <Text style={{color: '#FFF', textAlign: 'center', marginTop: 10}}>Similar Houses</Text>
+                    </LinearGradient>
+                </TouchableWithoutFeedback>
+            </View>
+        )
+    }
+
     render() {
+        
         console.log('house', this.props.navigation.getParam('house'));
         const { 
             title, id, location, price, status, photo_url, house_photos, bedrooms,
@@ -90,8 +163,10 @@ class House extends Component {
             textH3Style, textBrandColor, textBold, imgStyle, flexRow, textWhite, 
             textH4Style, textCenter, textNunito 
         } = GStyles
+
         return(
             <View style={{flex: 1, backgroundColor: 'white'}}>
+                {this.render_realtor_details_moadal()}
                 <StatusBar backgroundColor="#0379C9" />
                 <Header navigation={this.props.navigation}  headerText="Abuja Apartments" logo="1" />
                 <ScrollView>
@@ -126,7 +201,7 @@ class House extends Component {
                             </View>
                         </View>
 
-                        <View style={{backgroundColor: '#00688B', minHeight: 300}}>
+                        <View style={{backgroundColor: '#00688B', minHeight: 150}}>
                             <View style={housePropertyStyle}>
                                 <View>
                                     <View style={{flexDirection: 'row', marginVertical: 10}}>
@@ -156,6 +231,7 @@ class House extends Component {
 
                             </View>
                         </View>
+                        {this.render_footer_buttons()}
                     </View>
                 </ScrollView>
             </View>
@@ -219,4 +295,12 @@ const styles = StyleSheet.create({
     }
 });
 
-export default House;
+const mapStateToProps = state => {
+    const {similarHouses} = state;
+    return {similarHouses};
+  };
+  
+  export default connect(
+    mapStateToProps,
+    {similarHousesFetch},
+  )(House);  

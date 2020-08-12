@@ -9,7 +9,7 @@ class HomeScreen extends Component {
   };
 
   state = {
-    filterModalVisible: false
+    filterModalVisible: false,
   };
 
   setFilterModalVisible = () => {

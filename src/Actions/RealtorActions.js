@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {REALTOR_PAGE} from './types';
 
-export const realtorPortfolio = profile_name => {
+export const realtorPortfolioFetch = profile_name => {
   var formData = {profile_name: profile_name};
   return dispatch => {
     axios
