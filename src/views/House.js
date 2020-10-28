@@ -13,7 +13,7 @@ import {
 import {connect} from 'react-redux';
 import { Icon } from 'react-native-elements';
 import Swiper from 'react-native-swiper'
-import Header from '../components/Header';
+import OtherHeader from '../components/OtherHeader';
 import { MyText } from '../components/common/index';
 import GStyles from '../assets/styles/GeneralStyles';
 import { checkXterLength } from '../helpers';
@@ -21,6 +21,7 @@ import {Button} from '../components/common';
 import RealtorDetailsModal from '../components/RealtorDetailsModal';
 import { similarHousesFetch } from '../Actions';
 import LinearGradient from 'react-native-linear-gradient';
+import colors from '../colors'
 
 class House extends Component {
     state = {
@@ -144,7 +145,7 @@ class House extends Component {
 
     render() {
         
-        console.log('house', this.props.navigation.getParam('house'));
+        // console.log('house', this.props.navigation.getParam('house'));
         const { 
             title, id, location, price, status, photo_url, house_photos, bedrooms,
             bathrooms, toilets, service_charge, agent_fee, description
@@ -157,49 +158,55 @@ class House extends Component {
         }
         const { 
             titleStyle,locationStyle, priceStyle, statusStyle, swipperContainer,
-            textStyle, containerStyle, housePropertyStyle, propertyTextStyle
+            textStyle, containerStyle, housePropertyStyle, propertyTextStyle, headerContainer, titleContainer, bodyContainer, 
+            contentContainer, locationContainer
         } = styles;
         const { 
-            textH3Style, textBrandColor, textBold, imgStyle, flexRow, textWhite, 
+            textH3Style, textBrandColor, textBold, imgStyle, flexRow, textWhite, textNunitoBold, textDarkBlue,
             textH4Style, textCenter, textNunito 
         } = GStyles
 
         return(
-            <View style={{flex: 1, backgroundColor: 'white'}}>
+            <View style={{flex: 1, backgroundColor: 'white', position: 'relative'}}>
                 {this.render_realtor_details_moadal()}
-                <StatusBar backgroundColor="#0379C9" />
-                <Header navigation={this.props.navigation}  headerText="Abuja Apartments" logo="1" />
+                <StatusBar backgroundColor={colors.white} />
+                <View style={headerContainer}>
+                    <OtherHeader title="House Details" {...this.props} />
+                </View>
                 <ScrollView>
                     <View style={containerStyle}>
+                        <View style={titleContainer}>
+                            <MyText style={[textH4Style, textBold, textDarkBlue, textCenter]}>{title}</MyText>
+                        </View>
+                        <View style={bodyContainer}>
+                            <View style={contentContainer}>
+                                <View style={[flexRow, locationContainer]}>
+                                    <Icon type="ionicon" name="ios-pin" size={20} style={{ marginRight: 10}} color={colors.darkBlue} />
+                                    <MyText style={[textH4Style, textBold, textDarkBlue]}>{location}</MyText>
+                                </View>
+                                <Swiper style={swipperContainer} showsButtons={true} index={0}>
+                                    {this.render_house_photos()}
+                                </Swiper>
+                                <View style={[flexRow]}>
+                                    <View style={priceStyle}>
+                                        <Text style={{backgroundColor: '#FFF', fontWeight: 'bold', fontSize: 16}}>
+                                            N {price}
+                                        </Text>
+                                    </View>
+                                    <View style={statusStyle}>
+                                        <Text style={{backgroundColor: '#FFF', fontWeight: 'bold', fontSize: 16}}>
+                                            {status}
+                                        </Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+
                         
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={statusStyle}>
-                                <Text style={{backgroundColor: '#FFF', fontWeight: 'bold', fontSize: 16}}>
-                                    {status}
-                                </Text>
-                            </View>
-                            <View style={priceStyle}>
-                                <Text style={{backgroundColor: '#FFF', fontWeight: 'bold', fontSize: 16}}>
-                                    N{price}
-                                </Text>
-                            </View>
-                        </View>
 
-                        <Swiper style={swipperContainer} showsButtons={true} index={0}>
-                                {this.render_house_photos()}
-                        </Swiper>
+                        
 
-                        <View style={{flexDirection: 'row', marginTop: 10}}>
-                            <View style={titleStyle}>
-                                <Text style={[textStyle, {fontWeight: 'bold', fontSize: 18}]}>
-                                    {title}
-                                </Text>
-                            </View>
-                            
-                            <View style={locationStyle}>
-                                <Text style={[textStyle, {fontWeight: 'bold', fontSize: 18}]}>{location}</Text>
-                            </View>
-                        </View>
+                        
 
                         <View style={{backgroundColor: '#00688B', minHeight: 150}}>
                             <View style={housePropertyStyle}>
@@ -244,7 +251,24 @@ const styles = StyleSheet.create({
     swipperContainer: {
         height: 320
     },
-  
+    headerContainer: {
+        position: 'absolute', zIndex: 10, top: 0, left: 0, width: '100%'
+    },
+    containerStyle: {
+        paddingTop: 80
+    },
+    titleContainer: {
+        paddingHorizontal: 20, paddingVertical: 10
+    },
+    bodyContainer: {
+        paddingHorizontal:5
+    },
+    contentContainer: {
+        elevation: 3, backgroundColor: colors.white, borderRadius: 8, marginTop: 10
+    },
+    locationContainer: {
+        justifyContent: 'center', paddingVertical: 10
+    },
     imageContainerStyle: {
         height: 300
     },
@@ -278,9 +302,7 @@ const styles = StyleSheet.create({
     textStyle: {
         textAlign: 'left'
     },
-    containerStyle: {
-        elevation: 1,
-    },
+    
     housePropertyStyle: {
         flexDirection: 'row', 
         justifyContent: 'flex-start',

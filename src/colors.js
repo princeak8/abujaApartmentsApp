@@ -1,0 +1,25 @@
+const colors = {
+    blue: '#0379C9',
+    darkBlue:'#055285',
+    lightOrange: '#FFF2E5',
+    orange:'#FD8323',
+    darkBlue:'#055285',
+    lightGrey: '#E5E5E5',
+    lightGreyOne: '#EAEAEA',
+    lightGreyTwo: '#3B3B3B',
+    greyWhite: '#D5D5D5',
+    grey: '#646464',
+    darkGrey: '#222222',
+    success: '#378915',
+    secondary:'#F86792',
+    white:'#ffffff',
+    black: '#000000',
+    blackClose: '#111111',
+    fadedBlack: '#020201',
+    fadedWhite: 'rgba(255,255,255,0.6)',
+    willowBrook: "#eaf3e7",
+    fadedOrange: "#fff2e5",
+    brilliantRose: "#EF48A2",
+}
+
+export default colors;

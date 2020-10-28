@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../colors';
 
 const styles = StyleSheet.create({
   imgStyle: {
@@ -35,6 +36,12 @@ const styles = StyleSheet.create({
   lowerCase: {
     textTransform: 'lowercase'
   },
+  textBlue: {
+    color: colors.blue
+  },
+  textDarkBlue: {
+    color: colors.darkBlue
+  },
   textBrandColor: {
     color: '#065E99',
   },
@@ -42,10 +49,10 @@ const styles = StyleSheet.create({
     color: '#FF3100'
   },
   textSuccess: {
-    color: '#0AC876'
+    color: colors.success
   },
   textOrange: {
-    color: '#FFA883'
+    color: colors.orange
   },
   textInfo: {
     color: '#009ADA'

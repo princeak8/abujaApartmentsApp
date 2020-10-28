@@ -20,10 +20,10 @@ class Houses extends PureComponent {
     stopLoadingMore: false,
   };
   componentDidMount() {
-    this.props.housesFetch();
-    this.props.locationsFetch();
-    this.props.houseTypesFetch();
-    this.props.priceRangesFetch();
+    // this.props.housesFetch();
+    // this.props.locationsFetch();
+    // this.props.houseTypesFetch();
+    // this.props.priceRangesFetch();
     if (this.props.houses.totalNum > 0) {
       this.setState({loading: false});
     }
