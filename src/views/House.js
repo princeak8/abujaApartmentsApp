@@ -23,6 +23,7 @@ import { similarHousesFetch } from '../Actions';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../colors'
 
+
 class House extends Component {
     state = {
         realtorDetailsModalState: false
@@ -119,15 +120,18 @@ class House extends Component {
     }
 
     render_footer_buttons = () => {
+        const { footerContainer, footerItemContainer } = styles
+        const { textH4Style, textWhite, textH3Style, textCenter, textNunitoBold } = GStyles
         return (
-            <View style={{height: 40, flexDirection: 'row', paddingTop: 0, marginTop: 0}}>           
-                <TouchableWithoutFeedback style={{marginTop: 0, paddingTop: 0}} onPress={this.toggle_realtorDetailsModalState}>
-                    <LinearGradient colors={['#0379C9', '#065E99']} style={{height:40,width:'40%', borderRadius: 10}}>
-                        <Text style={{color: '#FFF', textAlign: 'center', marginTop: 10}}>Realtor Details</Text>
+            <View style={footerContainer}>           
+                <TouchableWithoutFeedback onPress={this.toggle_realtorDetailsModalState}>
+                    <LinearGradient colors={['#0379C9', '#065E99']} style={footerItemContainer}>
+                        <Icon name="user" type="feather" color="white" size={20}  />
+                        <MyText style={[textH4Style, textWhite, textNunitoBold, { marginTop: 5}]}>Realtor Details</MyText>
                     </LinearGradient>
                 </TouchableWithoutFeedback>
                 
-                <TouchableWithoutFeedback style={{marginTop: 0, paddingTop: 0}} 
+                <TouchableWithoutFeedback
                     onPress={() => { 
                         this.props.navigation.navigate('SimilarHouses', { 
                             navigation: this.props.navigation,
@@ -135,8 +139,9 @@ class House extends Component {
                         })
                     }}
                 >
-                    <LinearGradient colors={['#0379C9', '#065E99']} style={{height:40,width:'40%', borderRadius: 10}}>
-                        <Text style={{color: '#FFF', textAlign: 'center', marginTop: 10}}>Similar Houses</Text>
+                    <LinearGradient colors={['#0379C9', '#065E99']} style={footerItemContainer}>
+                        <Icon name="home" type="feather" color="white" size={20} />
+                        <MyText style={[textH4Style, textWhite, textNunitoBold, { marginTop: 5}]}>Similar Houses</MyText>
                     </LinearGradient>
                 </TouchableWithoutFeedback>
             </View>
@@ -148,7 +153,7 @@ class House extends Component {
         // console.log('house', this.props.navigation.getParam('house'));
         const { 
             title, id, location, price, status, photo_url, house_photos, bedrooms,
-            bathrooms, toilets, service_charge, agent_fee, description
+            bathrooms, toilets, service_charge, agent_fee, description, house_type
         } = this.props.navigation.getParam('house');
         //console.log('house Photos: ', house_photos);
         if(bathrooms == null) {
@@ -158,11 +163,11 @@ class House extends Component {
         }
         const { 
             titleStyle,locationStyle, priceStyle, statusStyle, swipperContainer,
-            textStyle, containerStyle, housePropertyStyle, propertyTextStyle, headerContainer, titleContainer, bodyContainer, 
-            contentContainer, locationContainer
+            textStyle, containerStyle, housePropertyStyle, propertyTextStyle, headerContainer, titleContainer, bodyContainer, textContainer,
+            contentContainer, locationContainer, priceContainer, contentContainer2, detailHeaderStyle, detailContainerStyle, itemDetail, divider
         } = styles;
         const { 
-            textH3Style, textBrandColor, textBold, imgStyle, flexRow, textWhite, textNunitoBold, textDarkBlue,
+            textH3Style, textBrandColor, textBold, imgStyle, flexRow, textWhite, textNunitoBold, textDarkBlue, textGreyColor,
             textH4Style, textCenter, textNunito 
         } = GStyles
 
@@ -187,60 +192,83 @@ class House extends Component {
                                 <Swiper style={swipperContainer} showsButtons={true} index={0}>
                                     {this.render_house_photos()}
                                 </Swiper>
-                                <View style={[flexRow]}>
-                                    <View style={priceStyle}>
-                                        <Text style={{backgroundColor: '#FFF', fontWeight: 'bold', fontSize: 16}}>
-                                            N {price}
-                                        </Text>
+                                <LinearGradient colors={['#0379C9', '#065E99']} style={[flexRow, priceContainer]}>
+                                    <View style={[priceStyle]}>
+                                        <MyText style={[textH4Style, textNunitoBold, textWhite]}>
+                                            ₦ {price}
+                                        </MyText>
                                     </View>
                                     <View style={statusStyle}>
-                                        <Text style={{backgroundColor: '#FFF', fontWeight: 'bold', fontSize: 16}}>
+                                        <MyText style={[textH4Style, textNunitoBold, textWhite]}>
                                             {status}
-                                        </Text>
+                                        </MyText>
+                                    </View>
+                                </LinearGradient>
+                                
+                            </View>
+
+                            <View style={contentContainer2}>
+                                <View style={detailHeaderStyle}>
+                                    <MyText style={[textH3Style, textNunitoBold, textCenter, textGreyColor]}>House Details</MyText>
+                                </View>
+                                <View style={detailContainerStyle}>
+                                    <LinearGradient colors={['#0379C9', '#065E99']} style={itemDetail}>
+                                        <Icon name="bed" type="font-awesome" color="#FFF" size={25}  />
+                                        <MyText style={[textH4Style, textWhite, textNunitoBold, { marginVertical: 5}]}>Bedrooms</MyText>
+                                        <MyText style={[textH4Style, textNunitoBold, textWhite]}>{bedrooms}</MyText>
+                                    </LinearGradient>
+
+                                    <LinearGradient colors={['#0379C9', '#065E99']} style={itemDetail}>
+                                        <Icon name="shower" type="font-awesome" color="#FFF" size={25}  />
+                                        <MyText style={[textH4Style, textWhite, textNunitoBold, { marginVertical: 5}]}>Bathrooms</MyText>
+                                        <MyText style={[textH4Style, textNunitoBold, textWhite]}> 
+                                            {(bathrooms == null) ? 'N/A' : bathrooms}
+                                        </MyText>
+                                    </LinearGradient>
+
+                                    <LinearGradient colors={['#0379C9', '#065E99']} style={itemDetail}>
+                                        <Icon name="bath" type="font-awesome" color="#FFF" size={25}  />
+                                        <MyText style={[textH4Style, textWhite, textNunitoBold, { marginVertical: 5}]}>Toilets</MyText>
+                                        <MyText style={[textH4Style, textNunitoBold, textWhite]}> 
+                                            {(toilets == null) ? 'N/A' : toilets}
+                                        </MyText>
+                                    </LinearGradient>
+
+                                    <LinearGradient colors={['#0379C9', '#065E99']} style={itemDetail}>
+                                        <Icon name="home" type="font-awesome" color="#FFF" size={25}  />
+                                        <MyText style={[textH4Style, textWhite, textNunitoBold, { marginVertical: 5}]}>House Type</MyText>
+                                        <MyText style={[textH4Style, textNunitoBold, textWhite]}> 
+                                            {house_type}
+                                        </MyText>
+                                    </LinearGradient>
+                                </View>
+
+                                <View>
+                                    <MyText style={[textH4Style, textNunitoBold, textCenter, textGreyColor, { marginVertical: 10}]}>Description</MyText>
+                                    <View style={divider}></View>
+                                    <View style={textContainer}>
+                                        <MyText style={[textH4Style, textGreyColor]}>{description}</MyText>
                                     </View>
                                 </View>
+
                             </View>
                         </View>
 
-                        
 
                         
-
-                        
-
-                        <View style={{backgroundColor: '#00688B', minHeight: 150}}>
                             <View style={housePropertyStyle}>
                                 <View>
-                                    <View style={{flexDirection: 'row', marginVertical: 10}}>
-                                        <Icon name="bed" type="font-awesome" color="#FFF" size={14}  />
-                                        <Text style={propertyTextStyle}>Bedrooms: {bedrooms}</Text>
-                                    </View>
-                                    <View style={{flexDirection: 'row', marginVertical: 10}}>
-                                        <Icon name="shower" type="font-awesome" color="#FFF" size={14}  />
-                                        <Text style={propertyTextStyle}>
-                                            Bathrooms: 
-                                            <Text style={{fontStyle:'italic', marginHorizontal: '20%'}}> 
-                                                {(bathrooms == null) ? 'Info Not Available' : bathrooms}
-                                            </Text>
-                                        </Text>
-                                    </View>
-                                    <View style={{flexDirection: 'row', marginVertical: 10}}>
-                                        <Text style={propertyTextStyle}>
-                                            Toilets:
-                                            <Text style={{fontStyle:'italic'}}> 
-                                                {(toilets == null) ? 'Info Not Available' : toilets}
-                                            </Text>
-                                        </Text>
-                                    </View>
+                                    
 
                                     {this.agentFee_ServiceCharge()}
                                 </View>
 
                             </View>
-                        </View>
-                        {this.render_footer_buttons()}
+                        
+                        
                     </View>
                 </ScrollView>
+                {this.render_footer_buttons()}
             </View>
         );
     }
@@ -249,7 +277,7 @@ class House extends Component {
 
 const styles = StyleSheet.create({
     swipperContainer: {
-        height: 320
+        height: 320, borderWidth: 2
     },
     headerContainer: {
         position: 'absolute', zIndex: 10, top: 0, left: 0, width: '100%'
@@ -264,13 +292,16 @@ const styles = StyleSheet.create({
         paddingHorizontal:5
     },
     contentContainer: {
-        elevation: 3, backgroundColor: colors.white, borderRadius: 8, marginTop: 10
+        elevation: 3, backgroundColor: colors.white, borderRadius: 8, marginTop: 10, marginBottom: 10, overflow: 'hidden'
+    },
+    contentContainer2: {
+        elevation: 3, backgroundColor: colors.white, borderRadius: 8, marginTop: 10, marginBottom: 10, overflow: 'hidden'
     },
     locationContainer: {
         justifyContent: 'center', paddingVertical: 10
     },
     imageContainerStyle: {
-        height: 300
+        height: 330
     },
     imageStyle: {
         flex: 1, 
@@ -289,18 +320,27 @@ const styles = StyleSheet.create({
         flex: 1,
         marginRight: 5
     },
+    priceContainer: {
+        paddingVertical: 10,
+    },
     priceStyle: {
-        alignItems: 'flex-end', 
-        flex: 1,
-        marginRight: 5
+        flex: 1, alignItems: 'center'
     },
     statusStyle: {
-        alignItems: 'flex-start', 
-        flex: 1,
-        marginLeft: 5
+        flex: 1, alignItems: 'center'
     },
-    textStyle: {
-        textAlign: 'left'
+    detailHeaderStyle: {
+        paddingVertical: 10, borderBottomColor: colors.lightGrey, borderBottomWidth: 1
+    },
+    detailContainerStyle: {
+        padding: 8, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'
+    },
+    itemDetail: {
+        width: '48.5%', borderRadius: 8, justifyContent: 'center', alignItems: 'center',
+        paddingVertical: 15, marginBottom: 15
+    },
+    textContainer: {
+        paddingHorizontal: 10, paddingVertical: 10
     },
     
     housePropertyStyle: {
@@ -314,6 +354,16 @@ const styles = StyleSheet.create({
         fontSize: 14, 
         color: 'white',
         marginLeft: '2%'
+    },
+    footerContainer: {
+        width: '100%', flexDirection: 'row', justifyContent: 'space-between', position: 'absolute', bottom: 0, zIndex: 1
+    },
+    footerItemContainer: {
+        width: '48.5%', borderTopLeftRadius: 15, borderTopRightRadius: 15,
+        paddingVertical: 8, justifyContent:'center', alignItems: 'center'
+    },
+    divider: {
+        height: 1, width: '100%', backgroundColor: colors.lightGrey
     }
 });
 

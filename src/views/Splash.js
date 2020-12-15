@@ -36,7 +36,7 @@ class Splash extends Component {
     const { containerImg, imgContainer } = styles
     return (
       <View>
-        <StatusBar backgroundColor="#0379C9" />
+        <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0)" />
         <ImageBackground source={require('../assets/images/splash.png')} style={containerImg} resizeMode="cover">
             <View style={imgContainer}>
                 <Image source={require('../assets/images/logo/logo.png')} style={imgStyle} resizeMode="contain" />

@@ -7,6 +7,7 @@ import { MyText } from '../components/common/index';
 import GStyles from '../assets/styles/GeneralStyles';
 import {Button} from '../components/common';
 import {abortFiltering} from '../Actions';
+import colors from '../colors';
 
 // Make a component
 class Header extends Component {
@@ -64,7 +65,7 @@ class Header extends Component {
 
     return (
       <View>
-        
+        <View style={{ height: 40, backgroundColor: colors.blue, width: '100%'}}></View>
         <ImageBackground style={imageBgStyles} resizeMode="cover" source={require('../assets/images/header/header.png')}>
           <View style={headerContainer}>
             {this.render_filter()}
@@ -98,10 +99,12 @@ class Header extends Component {
 
 const styles = StyleSheet.create({
   imageBgStyles: {
-    width: '100%', height: 95,
+    width: '100%', height: 95, 
+    // borderWidth: 1,
   },
   headerContainer: {
-    display: 'flex', flexDirection: 'row', alignItems: 'center', paddingVertical: 10, paddingHorizontal: 10
+    display: 'flex', flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingHorizontal: 20, 
+    // paddingTop: 20
   },
   leftContainer: {
     flex: 1

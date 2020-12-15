@@ -21,7 +21,7 @@ class HomeScreen extends Component {
     return (
       // eslint-disable-next-line react-native/no-inline-styles
       <View style={{flex: 1, backgroundColor: 'white'}}>
-        <StatusBar backgroundColor="#0379C9" />
+        {/* <StatusBar backgroundColor="#0379C9" /> */}
         <Header 
           headerText="Abuja Apartments" 
           logo="1" 

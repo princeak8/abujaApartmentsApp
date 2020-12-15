@@ -11,7 +11,8 @@ class MyText extends Component {
 
 const styles = StyleSheet.create({
   textStyles: {
-    fontFamily: 'Raleway-Regular',
+    // fontFamily: 'Raleway-Regular',
+    fontFamily: 'Nunito-Regular'
   },
 });
 
